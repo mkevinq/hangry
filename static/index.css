@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Overpass&display=swap');
+
+body {
+    background: white;
+}
+
+.landing, .about, .projects {
+    font-family: "Montserrat";
+    margin: 50px auto;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0px 0px 10px 2px black;
+}
+
+.landing {
+    background: #7f0000;
+    width: 70%;
+    text-shadow: 0px 2px 3px black;
+    color: white;
+}
+
+.landing h1, .landing .buttons{
+    margin: 25px;
+}
+
+.profiles {
+    text-decoration: none;
+    padding: 10px;
+    font-family: "Montserrat";
+    color: #ffffff;
+}
+
+.buttons div {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-style: solid;
+    border-color: #ffffff;
+    border-width: 2px;
+    border-radius: 5px;
+    padding: 15px 32px;
+    filter: opacity(40%);
+    transition: 0.2s;
+    box-shadow: 0px 2px 3px 0px black;
+}
+
+.buttons div:hover {
+    filter: opacity(100%);
+}
+
+.buttons div img {
+    height: 20px;
+    margin-right: 6px;
+}
