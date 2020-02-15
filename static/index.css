@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat|Overpass&display=swap');
 
 body {
-    background: white;
+    background: #00325f;
 }
 
 .landing, .image_upload, .text_upload {
@@ -23,7 +23,7 @@ body {
     margin: 25px;
 }
 
-.about, .projects {
+.image_upload, .text_upload {
     background-color: white;
     width: 90%;
 }

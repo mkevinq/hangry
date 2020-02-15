@@ -15,7 +15,7 @@
     <div class="image_upload">
         <div class="section">
             <h1>Upload a picture of your face:</h1>
-            <form method=post enctype=multipart/form-data>
+            <form action="/api/image" method=post enctype=multipart/form-data>
                 <label for="img">Select image:</label>
                 <input type=file id="img" name=file accept="image/*">
                 <input type=submit value=Upload>
@@ -26,7 +26,7 @@
     <div class="text_upload">
         <div class="section">
             <h1>... or tell us how you are feeling:</h1>
-            <form method=post>
+            <form action="/api/text" method=post>
                 <input name=text>
                 <input type=submit value=Submit>
             </form>

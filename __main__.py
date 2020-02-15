@@ -1,6 +1,7 @@
 import os
-from flask import Flask, flash, request, render_template, redirect, url_for, send_from_directory
+from flask import Flask, flash, request, render_template, redirect, url_for, send_from_directory, jsonify
 from werkzeug.utils import secure_filename
+import util
 
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
@@ -16,29 +17,28 @@ def allowed_file(filename):
 def main():
     return render_template('index.html')
 
-@app.route('/', methods=['POST'])
-def upload():
-    try:
-        text = request.form['text']
-        print(text)
-        return render_template('index.html')
-    
-    except:
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
-        # if user does not select file, browser also
-        # submit an empty part without filename
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            print(filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('uploaded_file',filename=filename))
+@app.route('/api/image', methods=["POST"])
+def upload_image():
+    # check if the post request has the file part
+    if 'file' not in request.files:
+        flash('No file part')
+        return jsonify(data='')
+    file = request.files['file']
+    # if user does not select file, browser also
+    # submit an empty part without filename
+    if file.filename == '':
+        flash('No selected file')
+        return jsonify(data='')
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        data_out = util.read_face_gcv(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        return jsonify(data=data_out)
+
+@app.route('/api/text', methods=["POST"])
+def upload_text():
+    data_out = util.read_text_gcv(request.form['text'])
+    return jsonify(data=data_out)
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
