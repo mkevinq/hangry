@@ -8,14 +8,28 @@
     <div class="landing">
         <div class="section">
             <h1>Hangry</h1>
+            <h4>Food for your mood</h4>
         </div>
     </div>
 
-    <div class="interface">
-    <form method=post enctype=multipart/form-data>
-        <label for="img">Select image:</label>
-        <input type=file id="img" name=file accept="image/*">
-        <input type=submit value=Upload>
-    </form>
+    <div class="image_upload">
+        <div class="section">
+            <h1>Upload a picture of your face:</h1>
+            <form method=post enctype=multipart/form-data>
+                <label for="img">Select image:</label>
+                <input type=file id="img" name=file accept="image/*">
+                <input type=submit value=Upload>
+            </form>
+        </div>
+    </div>
+
+    <div class="text_upload">
+        <div class="section">
+            <h1>... or tell us how you are feeling:</h1>
+            <form method=post>
+                <input name=text>
+                <input type=submit value=Submit>
+            </form>
+        </div>
     </div>
 </body>

@@ -12,9 +12,18 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def main():
-    if request.method == 'POST':
+    return render_template('index.html')
+
+@app.route('/', methods=['POST'])
+def upload():
+    try:
+        text = request.form['text']
+        print(text)
+        return render_template('index.html')
+    
+    except:
         # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
@@ -30,7 +39,6 @@ def main():
             print(filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('uploaded_file',filename=filename))
-    return render_template('index.html')
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
