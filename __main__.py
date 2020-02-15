@@ -31,14 +31,17 @@ def upload_image():
         return jsonify(data='')
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        data_out = util.read_face_gcv(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        return jsonify(data=data_out)
+        image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(image_path)
+        data_out = util.read_face_gcv(image_path)
+        return render_template('results.html', image=filename)
+        # return jsonify(data=data_out)
 
 @app.route('/api/text', methods=["POST"])
 def upload_text():
     data_out = util.read_text_gcv(request.form['text'])
-    return jsonify(data=data_out)
+    return render_template('results.html')
+    # return jsonify(data=data_out)
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):

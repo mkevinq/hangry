@@ -1,0 +1,32 @@
+<head>
+    <title>Hangry - Food for your mood</title>
+    <link rel="stylesheet" type="text/css" href="/static/results.css">
+    <link rel="icon" href="./imgs/logo.png">
+</head>
+  
+<body>
+    <div class="landing">
+        <div class="section">
+            <h1>Hangry</h1>
+            <h4>Food for your mood</h4>
+        </div>
+    </div>
+
+    <div class="entry">
+        <div class="section">
+            <h1>Entry:</h1>
+            {% if image %}
+                <img src="/uploads/{{ image }}">
+            {% else %}
+                <p>{{ request.form['text'] }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="results">
+        <div class="section">
+            <h1>We think you are feeling {{ emotion }}</h1>
+            <h3>Here are our food recommendations:</h3>
+        </div>
+    </div>
+</body>

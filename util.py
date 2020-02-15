@@ -49,9 +49,10 @@ def read_face_gcv(image_path):
 
     faces = response.face_annotations
 
-    face = faces[0]
+    try:
+        face = faces[0]
 
-    emotions = [
+        emotions = [
         {
             'Type': 'JOY',
             'Likelihood': face.joy_likelihood
@@ -69,6 +70,9 @@ def read_face_gcv(image_path):
             'Likelihood': face.surprise_likelihood
         }
     ]
+
+    except:
+        emotions = "No face found"
 
     return emotions
 
