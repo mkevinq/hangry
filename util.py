@@ -2,8 +2,9 @@ import urllib.request
 import urllib.error
 import base64
 import json
-from google.cloud import vision
+from google.cloud import vision, language_v1
 from google.cloud.vision import types
+from google.cloud.language_v1 import enums
 import io
 import boto3
 
@@ -18,6 +19,23 @@ def post_request(url, h ,b):
     request = urllib.request.Request(url, data=body, headers=h, method="POST")
     with urllib.request.urlopen(request) as response:
         data = json.loads(response.read().decode('ascii'))
+    return data
+
+def read_text_gcv(text):
+    client = language_v1.LanguageServiceClient()
+
+    document = {
+        "content": text,
+        "type": enums.Document.Type.PLAIN_TEXT
+    }
+
+    response = client.analyze_sentiment(document, encoding_type=enums.EncodingType.UTF8)
+
+    data = {
+        "score": response.document_sentiment.score,
+        "magnitude": response.document_sentiment.magnitude
+    }
+
     return data
 
 def read_face_gcv(image_path):
