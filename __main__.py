@@ -34,14 +34,16 @@ def upload_image():
         image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(image_path)
         data_out = util.read_face_gcv(image_path)
-        return render_template('results.html', image=filename)
-        # return jsonify(data=data_out)
+        emotion = util.calculate_emotion_image(data_out)
+        matches = util.pull_foods(util.read_csv("foods.csv"), emotion)
+        return render_template('results.html', image=filename, emotion=emotion, len=len(matches), matches=matches)
 
 @app.route('/api/text', methods=["POST"])
 def upload_text():
     data_out = util.read_text_gcv(request.form['text'])
-    return render_template('results.html')
-    # return jsonify(data=data_out)
+    emotion = util.calculate_emotion_text(data_out)
+    matches = util.pull_foods(util.read_csv("foods.csv"), emotion)
+    return render_template('results.html', emotion=emotion, len=len(matches), matches=matches)
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):

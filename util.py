@@ -7,6 +7,7 @@ from google.cloud.vision import types
 from google.cloud.language_v1 import enums
 import io
 import boto3
+import csv
 
 def get_request(url, h):
     request = urllib.request.Request(url, headers=h, method="GET")
@@ -83,3 +84,48 @@ def read_face_aws(image_path):
         response = client.detect_faces(Image={'Bytes': image.read()}, Attributes=['ALL'])
     
     return response['FaceDetails'][0]['Emotions']
+
+def read_csv(file_path):
+    final_data = []
+    with open(file_path, "r") as csv_file:
+        data = csv.DictReader(csv_file)
+        for line in data:
+            final_data.append(line)
+    
+    return final_data
+
+def pull_foods(foods, emotion):
+    matches = []
+
+    for food in foods:
+        if food['mood'] == emotion:
+            matches.append(food)
+    
+    return matches
+
+def calculate_emotion_image(data):
+    print(data)
+    high_num = 0
+    high_emotion = ''
+
+    for emotion in data:
+        if emotion['Likelihood'] > high_num:
+            high_num = emotion['Likelihood']
+            if emotion['Type'] == "JOY":
+                high_emotion = "Happy"
+            elif emotion['Type'] == "SORROW":
+                high_emotion = "Sad"
+            elif emotion['Type'] == "ANGER":
+                high_emotion = "Angry"
+            elif emotion['Type'] == "SURPRISE":
+                high_emotion = "Surprised"
+    
+    return high_emotion
+
+def calculate_emotion_text(data):
+    if data['score'] > 0:
+        emotion = "Happy"
+    elif data['score'] <= 0:
+        emotion = "Sad"
+
+    return emotion

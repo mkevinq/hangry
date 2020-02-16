@@ -27,6 +27,11 @@
         <div class="section">
             <h1>We think you are feeling {{ emotion }}</h1>
             <h3>Here are our food recommendations:</h3>
+            {% for i in range(0, len) %}
+                <a href="https://www.google.ca/maps/search/{{ matches[i]['name'] }}">
+                    <h5>{{ matches[i]['name'] }} - {{ matches[i]['desc'] }}</h5>
+                </a>
+            {% endfor %}
         </div>
     </div>
 </body>
