@@ -1,11 +1,17 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat|Overpass&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Rock+Salt|Squada+One&display=swap');
 
 body {
-    background: #00325f;
+    background-image: url("bg.jpg");
+}
+
+.landing h1 {
+    font-family: "Rock Salt";
+    font-size: 50px;
 }
 
 .landing, .image_upload, .text_upload {
-    font-family: "Montserrat";
+    font-family: "Squada One";
+    font-size: 20px;
     margin: 50px auto;
     padding: 10px;
     text-align: center;
@@ -13,7 +19,7 @@ body {
 }
 
 .landing {
-    background: #7f0000;
+    background: orange;
     width: 70%;
     text-shadow: 0px 2px 3px black;
     color: white;
