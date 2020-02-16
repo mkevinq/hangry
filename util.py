@@ -6,7 +6,6 @@ from google.cloud import vision, language_v1
 from google.cloud.vision import types
 from google.cloud.language_v1 import enums
 import io
-import boto3
 import csv
 
 def get_request(url, h):
@@ -76,14 +75,6 @@ def read_face_gcv(image_path):
         emotions = "No face found"
 
     return emotions
-
-def read_face_aws(image_path):
-    client = boto3.client('rekognition')
-
-    with open(image_path, "rb") as image:
-        response = client.detect_faces(Image={'Bytes': image.read()}, Attributes=['ALL'])
-    
-    return response['FaceDetails'][0]['Emotions']
 
 def read_csv(file_path):
     final_data = []
