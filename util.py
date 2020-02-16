@@ -7,6 +7,7 @@ from google.cloud.vision import types
 from google.cloud.language_v1 import enums
 import io
 import csv
+import random
 
 def get_request(url, h):
     request = urllib.request.Request(url, headers=h, method="GET")
@@ -92,7 +93,7 @@ def pull_foods(foods, emotion):
         if food['mood'] == emotion:
             matches.append(food)
     
-    return matches
+    return random.sample(matches, 5)
 
 def calculate_emotion_image(data):
     print(data)
